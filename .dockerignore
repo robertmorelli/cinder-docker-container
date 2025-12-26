@@ -1,0 +1,39 @@
+# Docker build context ignore file
+# Exclude build artifacts that would make the source directory "dirty"
+
+# Git
+cinder/.git
+.git
+.claude
+
+# Build artifacts and generated files
+cinder/build
+cinder/build/
+cinder/_cinderx_build
+cinder/_cinderx_venv
+cinder/config.log
+cinder/config.status
+cinder/default.profraw
+cinder/Makefile
+cinder/pyconfig.h
+cinder/Modules/Setup.local
+
+# Python cache
+**/__pycache__
+**/*.pyc
+**/*.pyo
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# CI/CD (not needed for local builds)
+cinder/.github
+cinder/.azure-pipelines
+cinder/.travis.yml
+cinder/copilot
+
+# Documentation files (optional - comment out if needed)
+ai_overview.txt
