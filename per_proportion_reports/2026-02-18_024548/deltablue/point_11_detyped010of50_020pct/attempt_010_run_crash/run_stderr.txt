@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_bd4a051286b9163c.py", line 590, in <module>
+    delta_blue(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_bd4a051286b9163c.py", line 586, in delta_blue
+    projection_test(box(int64(n)))
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_bd4a051286b9163c.py", line 536, in projection_test
+    dests = cast(CheckedList[Variable], [])
+  File "/cinder/cinderx/PythonLib/__static__/__init__.py", line 412, in cast
+    raise TypeError(f"expected {typ.__name__}, got {type(val).__name__}")
+TypeError: expected chklist[Variable], got list

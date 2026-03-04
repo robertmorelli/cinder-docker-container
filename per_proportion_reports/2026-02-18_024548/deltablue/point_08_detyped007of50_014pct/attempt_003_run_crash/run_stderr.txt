@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 596, in <module>
+    delta_blue(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 592, in delta_blue
+    projection_test(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 554, in projection_test
+    change(src, 17)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 585, in change
+    edit.destroy_constraint()
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 99, in destroy_constraint
+    planner.incremental_remove(self)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 368, in incremental_remove
+    unsatisfied = cast(CheckedList[Constraint], self.remove_propagate_from(cast(Variable, out)))
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_18124cee1b705c5c.py", line 424, in remove_propagate_from
+    unsatisfied = cast(CheckedList[Constraint], [])
+  File "/cinder/cinderx/PythonLib/__static__/__init__.py", line 412, in cast
+    raise TypeError(f"expected {typ.__name__}, got {type(val).__name__}")
+TypeError: expected chklist[Constraint], got list

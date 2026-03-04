@@ -22,6 +22,7 @@ Each transform is shown vertically:
 - [return cast all](#return-cast-all)
 - [return cast container passthrough](#return-cast-container-passthrough)
 - [return construct container](#return-construct-container)
+- [return detype none](#return-detype-none)
 - [wrapper cleanup](#wrapper-cleanup)
 
 ## body box primitive
@@ -35,6 +36,7 @@ def bump() -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def bump() -> int64:
     n = box(int64(41))
     return int64(n) + 1
@@ -61,14 +63,16 @@ def run() -> None:
 To:
 ```python
 class Widget:
+
+    # detyper-status: types_kept
     def tick(self) -> None:
         return None
 
-
+# detyper-status: types_kept
 def make_widget() -> Widget:
     return Widget()
 
-
+# detyper-status: types_removed
 def run() -> None:
     w = cast(Widget, make_widget())
     cast(Widget, w).tick()
@@ -85,6 +89,7 @@ def first_value(xs: Array[int64]) -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def first_value(xs: Array[int64]) -> int64:
     arr = cast(Array[int64], xs)
     return cast(Array[int64], arr)[int64(0)]
@@ -101,6 +106,7 @@ def first_value() -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def first_value() -> int64:
     xs = CheckedList[int64](CheckedList[int64]([1, 2, 3]))
     return CheckedList[int64](xs)[0]
@@ -119,6 +125,7 @@ def project(_x):
 To:
 ```python
 @inline
+# detyper-status: types_removed
 def project(_x):
     return int64(_x)
 ```
@@ -138,11 +145,12 @@ def use(v: int64) -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def add_one(_x) -> int64:
     x: int64 = int64(_x)
     return x + 1
 
-
+# detyper-status: types_kept
 def use(v: int64) -> int64:
     out: int64 = add_one(box(v))
     return out
@@ -170,12 +178,12 @@ To:
 class Foo:
     pass
 
-
+# detyper-status: types_removed
 def echo(_foo) -> Foo:
     foo: Foo = cast(Foo, _foo)
     return foo
 
-
+# detyper-status: types_kept
 def use(x: Foo) -> Foo:
     out: Foo = echo(cast(Foo, x))
     return out
@@ -196,11 +204,12 @@ def use(src: Array[int64]) -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def first(_xs) -> int64:
     xs: Array[int64] = cast(Array[int64], _xs)
     return xs[int64(0)]
 
-
+# detyper-status: types_kept
 def use(src: Array[int64]) -> int64:
     out: int64 = first(cast(Array[int64], src))
     return out
@@ -221,11 +230,12 @@ def use(src: CheckedList[int64]) -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def first(_xs) -> int64:
     xs: CheckedList[int64] = CheckedList[int64](_xs)
     return xs[0]
 
-
+# detyper-status: types_kept
 def use(src: CheckedList[int64]) -> int64:
     out: int64 = first(CheckedList[int64](src))
     return out
@@ -246,10 +256,11 @@ def use(v: int64) -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def inc(x: int64):
     return box(int64(x + 1))
 
-
+# detyper-status: types_kept
 def use(v: int64) -> int64:
     out: int64 = int64(inc(v))
     return out
@@ -277,11 +288,11 @@ To:
 class Foo:
     pass
 
-
+# detyper-status: types_removed
 def make_foo():
     return Foo()
 
-
+# detyper-status: types_kept
 def use() -> Foo:
     out: Foo = cast(Foo, make_foo())
     return out
@@ -302,10 +313,11 @@ def use(v: Array[int64]) -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def make_items(xs: Array[int64]):
     return xs
 
-
+# detyper-status: types_kept
 def use(v: Array[int64]) -> int64:
     out: Array[int64] = cast(Array[int64], make_items(v))
     return out[int64(0)]
@@ -326,13 +338,38 @@ def use() -> int64:
 
 To:
 ```python
+# detyper-status: types_removed
 def make_items():
     return CheckedList[int64]([1, 2, 3])
 
-
+# detyper-status: types_kept
 def use() -> int64:
     out: CheckedList[int64] = CheckedList[int64](make_items())
     return out[0]
+```
+
+## return detype none
+
+From:
+```python
+def reset() -> None:
+    pass
+
+
+def greet(name: str) -> None:
+    print(name)
+```
+
+To:
+```python
+# detyper-status: types_removed
+def reset():
+    pass
+
+
+# detyper-status: types_removed
+def greet(name: str):
+    print(name)
 ```
 
 ## wrapper cleanup
@@ -355,10 +392,10 @@ To:
 class Foo:
     pass
 
-
+# detyper-status: types_kept
 def demo(x):
     a = cast(Foo, x)
     b = int64(1)
     c = box(int64(2))
-    return a, b, c
+    return (a, b, c)
 ```

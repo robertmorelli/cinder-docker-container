@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 601, in <module>
+    delta_blue(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 596, in delta_blue
+    chain_test(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 511, in chain_test
+    EqualityConstraint(prev, v, REQUIRED)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 197, in __init__
+    self.add_constraint()
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 73, in add_constraint
+    planner.incremental_add(cast(Constraint, self))
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 358, in incremental_add
+    overridden = constraint.satisfy(mark)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 89, in satisfy
+    if not planner.add_propagate(self, mark):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_fa0ec86604d28e1b.py", line 417, in add_propagate
+    self.add_constraints_consuming_to(cast(Variable, d.output()), cast(CheckedList[Constraint], todo))
+  File "/cinder/cinderx/PythonLib/__static__/__init__.py", line 412, in cast
+    raise TypeError(f"expected {typ.__name__}, got {type(val).__name__}")
+TypeError: expected chklist[Constraint], got list

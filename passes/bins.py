@@ -44,14 +44,16 @@ nogo_types = frozenset(
         "Coroutine",
         "Protocol",
         "Callable",
+        "CheckedDict", # should be fixed to simply work later
+        "CheckedSet", # should be fixed to simply work later
     )
 )
 
 # Container roots that are safe to reconstruct with explicit runtime constructor calls.
 container_construct_type_order = (
     "CheckedList",
-    "CheckedDict",
-    "CheckedSet",
+    # "CheckedDict",
+    # "CheckedSet",
 )
 container_construct_types = frozenset(container_construct_type_order)
 
@@ -70,6 +72,7 @@ BOX_LOGIC_BIN = "primitive"
 CONSTRUCT_LOGIC_BIN = "container"
 CAST_LOGIC_BIN = "all"
 CAST_CONTAINER_PASSTHROUGH_LOGIC_BIN = "container_passthrough"
+NONE_LOGIC_BIN = "none"
 
 # Root-name to bin lookups for fast classification.
 construct_bin_by_root = dict((root_name, CONSTRUCT_LOGIC_BIN) for root_name in container_construct_types)

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_24657b29a9e57493.py", line 597, in <module>
+    delta_blue(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_24657b29a9e57493.py", line 592, in delta_blue
+    chain_test(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_24657b29a9e57493.py", line 522, in chain_test
+    plan = planner.extract_plan_from_constraints(edits)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_24657b29a9e57493.py", line 405, in extract_plan_from_constraints
+    return cast(Plan, self.make_plan(cast(CheckedList[UrnaryConstraint], sources)))
+  File "/cinder/cinderx/PythonLib/__static__/__init__.py", line 412, in cast
+    raise TypeError(f"expected {typ.__name__}, got {type(val).__name__}")
+TypeError: expected chklist[UrnaryConstraint], got list

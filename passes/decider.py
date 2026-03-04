@@ -18,6 +18,7 @@ from .bins import (
     CAST_CONTAINER_PASSTHROUGH_LOGIC_BIN,
     CAST_LOGIC_BIN,
     CONSTRUCT_LOGIC_BIN,
+    NONE_LOGIC_BIN,
     box_primitive_types,
     cast_container_passthrough_bin_by_root,
     construct_bin_by_root,
@@ -26,7 +27,7 @@ from .bins import (
 )
 
 ScopeName = Literal["param", "body", "return"]
-StrategyName = Literal["box", "construct", "cast", "passthrough", "nogo"]
+StrategyName = Literal["box", "construct", "cast", "passthrough", "nogo", "detype"]
 
 
 @dataclass(frozen=True)
@@ -98,11 +99,17 @@ def is_optional_or_union_annotation(annotation: expr | None) -> bool:
     return isinstance(annotation, BinOp) and isinstance(annotation.op, BitOr)
 
 
-def _pass_name(scope_name: ScopeName, strategy: Literal["box", "construct", "cast"], bin_name: str) -> str:
+def _pass_name(scope_name: ScopeName, strategy: Literal["box", "construct", "cast", "detype"], bin_name: str) -> str:
     return f"{scope_name}_{strategy}_{bin_name}"
 
 
 def decide_scope_strategy(scope_name: ScopeName, annotation: expr | None) -> StrategyDecision:
+    if annotation is not None and is_none_annotation(annotation) and scope_name == "return":
+        return StrategyDecision(
+            strategy="detype",
+            pass_name=_pass_name(scope_name, "detype", NONE_LOGIC_BIN),
+            bin_name=NONE_LOGIC_BIN,
+        )
     if annotation is None or is_none_annotation(annotation) or is_dynamic_annotation(annotation):
         return StrategyDecision(strategy="passthrough", pass_name=None, bin_name=None)
 

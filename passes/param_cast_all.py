@@ -17,19 +17,11 @@ from copy import deepcopy
 from itertools import chain
 
 from .context import PassContext
+from .util import fresh_hidden_name
 
 
 PASS_NAME = "param_cast_all"
 POLICY = "cast"
-
-
-def _fresh_hidden_name(base_name: str, used_names: set[str]) -> str:
-    # Hidden-name generator keeps rewritten arg namespace stable and collision-free.
-    hidden = f"_{base_name}"
-    while hidden in used_names:
-        hidden = f"_{hidden}"
-    used_names.add(hidden)
-    return hidden
 
 
 def apply(
@@ -57,7 +49,7 @@ def apply(
             continue
         # Rewrite signature arg and inject cast/construct reprojection statement.
         old_name = a.arg
-        hidden_name = _fresh_hidden_name(old_name, used_names)
+        hidden_name = fresh_hidden_name(old_name, used_names)
         a.arg = hidden_name
         annotation_copy = deepcopy(annotation)
         conversion_stmts.append(

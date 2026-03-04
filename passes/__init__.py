@@ -12,18 +12,21 @@ from .param_box_primitive import apply as apply_param_box_primitive
 from .param_construct_container import apply as apply_param_construct_container
 from .param_cast_all import apply as apply_param_cast_all
 from .param_cast_container_passthrough import apply as apply_param_cast_container_passthrough
+from .param_detype_none import apply as apply_param_detype_none
 
 # Body-annassign erasure pass entrypoints.
 from .body_box_primitive import apply as apply_body_box_primitive
 from .body_construct_container import apply as apply_body_construct_container
 from .body_cast_all import apply as apply_body_cast_all
 from .body_cast_container_passthrough import apply as apply_body_cast_container_passthrough
+from .body_detype_none import apply as apply_body_detype_none
 
 # Return-annotation erasure pass entrypoints.
 from .return_box_primitive import apply as apply_return_box_primitive
 from .return_construct_container import apply as apply_return_construct_container
 from .return_cast_all import apply as apply_return_cast_all
 from .return_cast_container_passthrough import apply as apply_return_cast_container_passthrough
+from .return_detype_none import apply as apply_return_detype_none
 
 
 # Ordered parameter-pass pipeline.
@@ -32,6 +35,7 @@ PARAM_PASS_APPLIERS = (
     apply_param_construct_container,
     apply_param_cast_all,
     apply_param_cast_container_passthrough,
+    apply_param_detype_none,
 )
 
 # Ordered body-pass pipeline.
@@ -40,6 +44,7 @@ BODY_PASS_APPLIERS = (
     apply_body_construct_container,
     apply_body_cast_all,
     apply_body_cast_container_passthrough,
+    apply_body_detype_none,
 )
 
 # Ordered return-pass pipeline.
@@ -48,4 +53,5 @@ RETURN_PASS_APPLIERS = (
     apply_return_construct_container,
     apply_return_cast_all,
     apply_return_cast_container_passthrough,
+    apply_return_detype_none,
 )

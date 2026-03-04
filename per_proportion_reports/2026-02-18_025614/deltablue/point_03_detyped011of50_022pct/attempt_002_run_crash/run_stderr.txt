@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_f36391b5a4efcb9f.py", line 591, in <module>
+    delta_blue(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_f36391b5a4efcb9f.py", line 587, in delta_blue
+    projection_test(box(int64(n)))
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_f36391b5a4efcb9f.py", line 558, in projection_test
+    if CheckedList[Variable](dests)[int64(i)].value != int64(i) * 5 + 1000:
+IndexError: list index out of range

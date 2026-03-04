@@ -1,14 +1,16 @@
 """
 Pass: body_construct_container
 
-Erases constructor-backed container local AnnAssign and reconstructs at assignment/use boundaries.
+Erases constructor-backed container local AnnAssign.
+
+Current strategy keeps body assignment/read/write unwrapped and relies on call-boundary
+reprojection for safety.
 
 Transform shape:
 before:
   xs: CheckedList[int64] = make_items()
 after:
-  xs = CheckedList[int64](make_items())
-  # later reads are reprojected by shared body read projection logic
+  xs = make_items()
 """
 
 from ast import Constant, expr
@@ -34,5 +36,5 @@ def apply(annotation: expr, value: expr | None, pass_state: dict[str, bool], ctx
     # Body erasure keeps assignment site dynamic; `None` stays explicit constant.
     if value is None:
         return Constant(value=None)
-    # Constructor bin shape: T(value)
-    return ctx.wrap_construct(annotation, value)
+    # Body strategy here is pure annotation erase.
+    return value

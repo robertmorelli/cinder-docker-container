@@ -19,20 +19,11 @@ from itertools import chain
 from ast import FunctionDef
 
 from .context import PassContext
+from .util import fresh_hidden_name
 
 
 PASS_NAME = "param_box_primitive"
 POLICY = "box"
-
-
-def _fresh_hidden_name(base_name: str, used_names: set[str]) -> str:
-    # Preserve user names by shifting the original parameter behind one or more "_" prefixes.
-    # This mirrors the old in-file helper behavior exactly.
-    hidden = f"_{base_name}"
-    while hidden in used_names:
-        hidden = f"_{hidden}"
-    used_names.add(hidden)
-    return hidden
 
 
 def apply(
@@ -66,7 +57,7 @@ def apply(
 
         # Rewrite `x: T` param to hidden dynamic param `_x`.
         old_name = a.arg
-        hidden_name = _fresh_hidden_name(old_name, used_names)
+        hidden_name = fresh_hidden_name(old_name, used_names)
         a.arg = hidden_name
 
         # Add explicit inbound projection `x: T = T(_x)` at function entry.

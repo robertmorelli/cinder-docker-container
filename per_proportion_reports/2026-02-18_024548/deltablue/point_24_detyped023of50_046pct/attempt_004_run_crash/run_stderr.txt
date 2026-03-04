@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_4878605694afdf20.py", line 605, in <module>
+    delta_blue(cast(int, n))
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_4878605694afdf20.py", line 601, in delta_blue
+    projection_test(n)
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_4878605694afdf20.py", line 560, in projection_test
+    change(cast(Variable, src), box(int64(17)))
+  File "/tmp/detype_boxunbox/deltablue_advanced_main_p50_4878605694afdf20.py", line 585, in change
+    edits = cast(CheckedList[UrnaryConstraint], [])
+  File "/cinder/cinderx/PythonLib/__static__/__init__.py", line 412, in cast
+    raise TypeError(f"expected {typ.__name__}, got {type(val).__name__}")
+TypeError: expected chklist[UrnaryConstraint], got list
